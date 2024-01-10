@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+  </head>
+  <body>
+    <h2>Login Form</h2>
+
+    <form id="loginForm">
+      <label for="email">Username:</label>
+      <input type="text" id="email" name="email" required />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          // Replace the API endpoint with your actual login API endpoint
+          const apiUrl =
+            "https://4f6f-105-55-130-132.ngrok-free.app/user/login/";
+
+          try {
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: email,
+                password: password,
+              }),
+            });
+
+            if (response.ok) {
+              // Handle successful login
+              const responseData = await response.json();
+              console.log("Login successful:", responseData);
+            } else {
+              // Handle login failure
+              console.error("Login failed:", response.statusText);
+            }
+          } catch (error) {
+            console.error("Error during login:", error.message);
+          }
+        });
+
+      // function getCookie(name) {
+      //   const cookies = document.cookie.split(";");
+      //   for (let i = 0; i < cookies.length; i++) {
+      //     const cookie = cookies[i].trim();
+      //     if (cookie.startsWith(name + "=")) {
+      //       return cookie.substring(name.length + 1);
+      //     }
+      //   }
+      //   return null;
+      // }
+
+      // const jwtToken = getCookie("jwt");
+      // if (jwtToken) {
+      //   // Use the token in your requests or for other purposes
+      //   console.log("JWT Token:", jwtToken);
+      // } else {
+      //   console.error("JWT Token not found in cookies.");
+      // }
+    </script>
+  </body>
+</html>
