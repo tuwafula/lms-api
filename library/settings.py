@@ -149,6 +149,7 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = BASE_DIR / 'static/images'
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # CORS_ALLOWED_ORIGINS = [
 #     "http://127.0.0.1:8080",
