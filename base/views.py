@@ -19,7 +19,7 @@ class ListBookView(ListAPIView):
     queryset = Book.objects.all()
 
 class CreateBookView(CreateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     model = Book
     serializer_class = BookSerializer
     
@@ -32,7 +32,7 @@ class CreateBookView(CreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class BookDetailView(RetrieveAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     serializer_class = BookSerializer
 
     def get_object(self):
@@ -56,7 +56,7 @@ class BookDetailView(RetrieveAPIView):
         
 
 class BookUpdateView(UpdateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     serializer_class = BookSerializer
 
     def get_object(self):
@@ -99,8 +99,8 @@ class BookUpdateView(UpdateAPIView):
 
 
 class BookDeleteView(DestroyAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     
     def get_object(self):
         try:
@@ -134,7 +134,7 @@ class ListMemberView(ListAPIView):
     queryset = Member.objects.all()
 
 class CreateMemberView(CreateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     serializer_class = MemberSerializer
 
     def post(self, request, *args, **kwargs):
@@ -145,7 +145,7 @@ class CreateMemberView(CreateAPIView):
         
 
 class MemberDetailView(RetrieveAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     model = Member
     serializer_class = MemberSerializer
     
@@ -170,7 +170,7 @@ class MemberDetailView(RetrieveAPIView):
         
 
 class MemberUpdateView(RetrieveUpdateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     model = Member
     serializer_class = MemberSerializer
     
@@ -195,7 +195,7 @@ class MemberUpdateView(RetrieveUpdateAPIView):
         return Response({'detail': 'Member not found'}, status=status.HTTP_404_NOT_FOUND)
         
 class MemberDeleteView(DestroyAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     model = Member
     serializer_class = MemberSerializer
 
@@ -231,7 +231,7 @@ class ListTransactions(ListAPIView):
     queryset = Transaction.objects.all()
 
 class CreateTransaction(CreateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     model = Transaction
     serializer_class = TransactionSerializer
     
@@ -242,7 +242,7 @@ class CreateTransaction(CreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
 class TransactionDetailView(RetrieveAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     model = Transaction
     serializer_class = TransactionSerializer
 
@@ -268,7 +268,7 @@ class TransactionDetailView(RetrieveAPIView):
         
 
 class TransactionUpdate(UpdateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     model = Transaction
     serializer_class = TransactionSerializer
 
@@ -294,7 +294,7 @@ class TransactionUpdate(UpdateAPIView):
             return Response({"message":"Transaction does not exist"})
         
 class TransactionDeleteView(DestroyAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     model = Transaction
     serializer_class = TransactionSerializer
 
