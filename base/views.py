@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView
 from rest_framework.response import Response
-from .serializers import BookSerializer
-from .models import Book
+from .serializers import BookSerializer, MemberSerializer, TransactionSerializer
+from .models import Book, Member, Transaction
 
 # Create your views here.
 
@@ -24,7 +24,7 @@ class CreateBookView(CreateAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class BookDetailView(RetrieveAPIView):
     serializer_class = BookSerializer
@@ -112,6 +112,96 @@ class BookDeleteView(DestroyAPIView):
         else: 
             return Response({"message": "Book does not exist"}, status=status.HTTP_404_NOT_FOUND)
         
+
+##########################################################################################
+################################################################################
+###################################################################
+###########################################
+
 # Member views start here
 class ListMemberView(ListAPIView):
-    pass
+    model = Member
+    serializer_class = MemberSerializer
+    queryset = Member.objects.all()
+
+class CreateMemberView(CreateAPIView):
+    serializer_class = MemberSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+
+class MemberDetailView(RetrieveAPIView):
+    model = Member
+    serializer_class = MemberSerializer
+    
+    def get_object(self):
+        try:
+            member = Member.objects.get(id=self.kwargs['pk'])
+            if member:
+                return member
+        except Member.DoesNotExist:
+            return None
+        
+        return super().get_object()
+
+    def get(self, request, *args, **kwargs):
+        member = self.get_object()
+
+        if member:
+            serializer = self.serializer_class(member)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({'detail': 'Member does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        
+
+class MemberUpdateView(RetrieveUpdateAPIView):
+    model = Member
+    serializer_class = MemberSerializer
+    
+    def get_object(self):
+        try:
+            member = Member.objects.get(id=self.kwargs['pk'])
+            if member:
+                return member
+        except Member.DoesNotExist:
+            return None
+        
+        return super().get_object()
+    
+    def put(self, request, *args, **kwargs):
+        member = self.get_object()
+
+        if member:
+            serializer = self.serializer_class(instance=member, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({'detail': 'Member not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+class MemberDeleteView(DestroyAPIView):
+    model = Member
+    serializer_class = MemberSerializer
+
+    def get_object(self):
+        try:
+            member = Member.objects.get(id=self.kwargs['pk'])
+            if member: 
+                return member
+        except Member.DoesNotExist:
+            return None
+        
+        return super().get_object()
+    
+    def delete(self, request, *args, **kwargs):
+        member = self.get_object()
+
+        if member:
+            member.delete()
+            return Response({'message': 'success'}, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({"message": "Member does not exist"}, status=status.HTTP_404_NOT_FOUND)
+        
