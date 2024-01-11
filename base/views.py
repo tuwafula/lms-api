@@ -204,4 +204,101 @@ class MemberDeleteView(DestroyAPIView):
             return Response({'message': 'success'}, status=status.HTTP_204_NO_CONTENT)
         else:
             return Response({"message": "Member does not exist"}, status=status.HTTP_404_NOT_FOUND)
+
+
+##########################################################################################
+################################################################################
+###################################################################
+###########################################
+
+# Transaction Views start here
+class ListTransactions(ListAPIView):
+    model = Transaction
+    serializer_class = TransactionSerializer
+    queryset = Transaction.objects.all()
+
+class CreateTransaction(CreateAPIView):
+    model = Transaction
+    serializer_class = TransactionSerializer
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+class TransactionDetailView(RetrieveAPIView):
+    model = Transaction
+    serializer_class = TransactionSerializer
+
+    def get_object(self):
+        try:
+            transaction = Transaction.objects.get(id=self.kwargs['pk'])
+
+            if transaction:
+                return transaction 
+        except Transaction.DoesNotExist:
+            return None
+
+        return super().get_object()
+    
+    def get(self, request, *args, **kwargs):
+        transaction = self.get_object()
+
+        if transaction:
+            serializer = self.serializer_class(transaction)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'Transaction does exist'})
+        
+
+class TransactionUpdate(UpdateAPIView):
+    model = Transaction
+    serializer_class = TransactionSerializer
+
+    def get_object(self):
+        try: 
+            transaction = Transaction.objects.get(id=self.kwargs['pk'])
+            if transaction:
+                return transaction
+        except Transaction.DoesNotExist:
+            return None
+        
+        return super().get_object()
+    
+    def put(self, request, *args, **kwargs):
+        transaction = self.get_object()
+
+        if transaction:
+            serializer = self.serializer_class(instance=transaction, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else: 
+            return Response({"message":"Transaction does not exist"})
+        
+class TransactionDeleteView(DestroyAPIView):
+    model = Transaction
+    serializer_class = TransactionSerializer
+
+    def get_object(self):
+        try: 
+            transaction = Transaction.objects.get(id=self.kwargs['pk'])
+            if transaction:
+                return transaction
+        except Transaction.DoesNotExist:
+            return None
+        
+        return super().get_object()
+
+    def delete(self, request, *args, **kwargs):
+        transaction = self.get_object()
+
+        if transaction:
+            transaction.delete()
+            return Response({"message": "success"}, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({"message": "Transaction does not exist"}, status=status.HTTP_404_NOT_FOUND)
+
+        
         
