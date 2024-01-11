@@ -16,7 +16,7 @@ class Book(models.Model):
 class Member(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
-    outstanding_debt = models.DecimalField(max_digits=8, decimal_places=2)
+    outstanding_debt = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
     def __str__(self):
         return self.name
