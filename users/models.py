@@ -31,6 +31,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     is_staff = models.BooleanField(default=True)
+    avatar = models.ImageField(null=True, default="avatar.svg")
     username = None
 
     USERNAME_FIELD = 'email'

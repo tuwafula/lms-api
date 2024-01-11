@@ -8,6 +8,11 @@ class Book(models.Model):
     quantity = models.PositiveIntegerField()
     stock = models.PositiveIntegerField()
     rent_fee = models.DecimalField(max_digits=6, decimal_places=2)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-updated', '-created']
 
     def __str__(self):
         return self.title
@@ -28,6 +33,10 @@ class Transaction(models.Model):
     return_date = models.DateField(blank=True, null=True)
     is_returned = models.BooleanField(default=False)
     rent_fee_charged = models.DecimalField(max_digits=8, decimal_places=2)
+    created = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created']
 
     def __str__(self):
         # return f"{self.book.title} - {self.member.name}"
