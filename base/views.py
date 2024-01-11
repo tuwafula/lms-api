@@ -4,6 +4,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView,
 from rest_framework.response import Response
 from .serializers import BookSerializer, MemberSerializer, TransactionSerializer
 from .models import Book, Member, Transaction
+from rest_framework import filters
 
 # Create your views here.
 
@@ -12,6 +13,8 @@ from .models import Book, Member, Transaction
 class ListBookView(ListAPIView):
     model = Book
     serializer_class = BookSerializer
+    search_fields = ['title', 'author']
+    filter_backends = (filters.SearchFilter,)
     queryset = Book.objects.all()
 
 class CreateBookView(CreateAPIView):
