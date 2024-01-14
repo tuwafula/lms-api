@@ -22,16 +22,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-*@vagr1g1-^p%74+0g$99&_(^%#*h87(!ec!+@d1m&azht8qtk'
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = 'django-insecure-*@vagr1g1-^p%74+0g$99&_(^%#*h87(!ec!+@d1m&azht8qtk'
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-# ALLOWED_HOSTS = ['4f6f-105-55-130-132.ngrok-free.app', '127.0.0.1']
+ALLOWED_HOSTS = ['4f6f-105-55-130-132.ngrok-free.app', '127.0.0.1']
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -93,9 +93,9 @@ DATABASES = {
     }
 }
 
-database_url = os.environ.get("DATABASE_URL")
+# database_url = os.environ.get("DATABASE_URL")
 
-DATABASES["default"] = dj_database_url.parse(database_url)
+DATABASES["default"] = dj_database_url.parse("postgres://lms_database_wozd_user:x4y9RS5VkWNulYhFHbRTx0OgGVrB6Veq@dpg-cmh78pfqd2ns73fp1bbg-a.oregon-postgres.render.com/lms_database_wozd")
 
 
 

@@ -4,27 +4,16 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 class CustomUserManager(BaseUserManager):
 
-    # def create_user(self, email, password=None, **extra_fields):
-    #     if not email:
-    #         raise ValueError("The email field must be set")
-    #     if not password:
-    #         raise ValueError("Password must be provided")
-    #     user = self.model(email=email, **extra_fields)
-    #     user = self.model(email=email)
-    #     user.set_password(password)
-    #     user.save(using=self._db)
-
-
-
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError("The email field must be set")
-
+        if not password:
+            raise ValueError("Password must be provided")
         user = self.model(email=email, **extra_fields)
+        user = self.model(email=email)
         user.set_password(password)
         user.save(using=self._db)
 
-        return user
 
 
     def create_superuser(self, email, password=None, **extra_fields):
@@ -48,6 +37,6 @@ class User(AbstractUser):
     username = None
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['email', 'password']
+    REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
