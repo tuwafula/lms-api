@@ -34,6 +34,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     # username = models.EmailField(unique=True)
     is_staff = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=True)
     avatar = models.ImageField(null=True, default="avatar.svg")
     username = None
 

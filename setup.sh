@@ -19,12 +19,12 @@ python manage.py migrate
 # create user groups
 
 
-python manage.py shell <<EOF
-from django.contrib.auth import get_user_model
+# python manage.py shell <<EOF
+# from django.contrib.auth import get_user_model
 
-User = get_user_model()
+# User = get_user_model()
 
-# Check if the superuser already exists
-if not User.objects.filter(email='admin@gmail.com').exists():
-    User.objects.create_superuser('admin@gmail.com', 'wafulaat@gmail.com', 'admin1234')
-EOF
+# # Check if the superuser already exists
+# # if not User.objects.filter(email='admin@gmail.com').exists():
+# #     User.objects.create_superuser('admin@gmail.com', 'wafulaat@gmail.com', 'admin1234')
+# EOF
