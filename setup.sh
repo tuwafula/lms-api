@@ -4,6 +4,14 @@ pip install --upgrade pip
 
 pip install -r requirements.txt
 
+python manage.py makemigrations users
+
+python manage.py migrate users
+
+python manage.py makemigrations base
+
+python manage.py migrate base
+
 python manage.py makemigrations
 
 python manage.py migrate
