@@ -97,7 +97,7 @@ DATABASES = {
 # "postgres://lms_database_wozd_user:x4y9RS5VkWNulYhFHbRTx0OgGVrB6Veq@dpg-cmh78pfqd2ns73fp1bbg-a.oregon-postgres.render.com/lms_database_wozd"
 database_url = os.environ.get("DATABASE_URL")
 
-DATABASES["default"] = dj_database_url.parse()
+DATABASES["default"] = dj_database_url.parse(database_url)
 
 
 
