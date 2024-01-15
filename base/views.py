@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView
 from rest_framework.response import Response
@@ -20,6 +20,7 @@ class ListBookView(ListAPIView):
 
 class CreateBookView(CreateAPIView):
     # permission_classes = (permissions.IsAuthenticated,)
+    parser_classes = (MultiPartParser, FormParser)
     model = Book
     serializer_class = BookSerializer
     

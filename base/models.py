@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+def upload_to(instance, filename):
+    return 'images/{filename}'.format(filename=filename)
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
@@ -8,7 +10,7 @@ class Book(models.Model):
     quantity = models.PositiveIntegerField()
     stock = models.PositiveIntegerField()
     rent_fee = models.DecimalField(max_digits=6, decimal_places=2)
-    image = models.ImageField(null=True, default="avatar.svg")
+    image = models.ImageField(upload_to=upload_to ,null=True, default="avatar.svg")
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

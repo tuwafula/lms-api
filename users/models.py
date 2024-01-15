@@ -27,6 +27,10 @@ class CustomUserManager(BaseUserManager):
         
         return self.create_user(email=email, password=password, **extra_fields)
     
+
+def upload_to(instance, filename):
+    return 'images/{filename}'.format(filename=filename)
+    
 # Create your models here.
 class User(AbstractUser):
     first_name = models.CharField(max_length=255)
@@ -35,7 +39,7 @@ class User(AbstractUser):
     # username = models.EmailField(unique=True)
     is_staff = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=True)
-    avatar = models.ImageField(null=True, default="avatar.svg")
+    avatar = models.ImageField(upload_to=upload_to,blank=True,null=True, default="avatar.svg")
     username = None
 
     USERNAME_FIELD = 'email'
