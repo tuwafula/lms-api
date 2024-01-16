@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 def upload_to(instance, filename):
-    return 'images/{filename}'.format(filename=filename)
+    return 'book-img/{filename}'.format(filename=filename)
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
