@@ -132,6 +132,8 @@ class BookDeleteView(DestroyAPIView):
 class ListMemberView(ListAPIView):
     model = Member
     serializer_class = MemberSerializer
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
     queryset = Member.objects.all()
 
 class CreateMemberView(CreateAPIView):
