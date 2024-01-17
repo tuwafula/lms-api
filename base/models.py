@@ -40,7 +40,7 @@ class Transaction(models.Model):
     issue_date = models.DateField(auto_now_add=True)
     return_date = models.DateField(blank=True, null=True)
     is_returned = models.BooleanField(default=False)
-    rent_fee_charged = models.DecimalField(max_digits=8, decimal_places=2)
+    rent_fee_charged = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
     created = models.DateTimeField(auto_now=True)
 
     class Meta:
