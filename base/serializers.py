@@ -1,3 +1,4 @@
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 from .models import Book, Member, Transaction
 
@@ -11,9 +12,9 @@ class MemberSerializer(serializers.ModelSerializer):
         model = Member
         fields = '__all__'
 
-class TransactionSerializer(serializers.ModelSerializer):
-    book = BookSerializer()
-    member = MemberSerializer()
+class TransactionSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
+    book = BookSerializer(many=True)
+    member = MemberSerializer(many=True)
 
     class Meta: 
         model = Transaction
