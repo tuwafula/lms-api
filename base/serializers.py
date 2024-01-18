@@ -13,8 +13,8 @@ class MemberSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TransactionSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
-    book = BookSerializer(many=True)
-    member = MemberSerializer(many=True)
+    book = BookSerializer()
+    member = MemberSerializer()
 
     class Meta: 
         model = Transaction
