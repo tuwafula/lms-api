@@ -1,3 +1,4 @@
+from django.db import transaction
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView
@@ -270,31 +271,61 @@ class TransactionDetailView(RetrieveAPIView):
             return Response({'message': 'Transaction does exist'})
         
 
+# class TransactionUpdate(UpdateAPIView):
+#     # permission_classes = (permissions.IsAuthenticated,)
+#     model = Transaction
+#     serializer_class = TransactionSerializer
+
+#     def get_object(self):
+#         try: 
+#             transaction = Transaction.objects.get(id=self.kwargs['pk'])
+#             if transaction:
+#                 return transaction
+#         except Transaction.DoesNotExist:
+#             return None
+        
+#         return super().get_object()
+    
+#     def put(self, request, *args, **kwargs):
+#         transaction = self.get_object()
+
+#         if transaction:
+#             serializer = self.serializer_class(instance=transaction, data=request.data)
+#             serializer.is_valid(raise_exception=True)
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#         else: 
+#             return Response({"message":"Transaction does not exist"})
+
+
 class TransactionUpdate(UpdateAPIView):
     # permission_classes = (permissions.IsAuthenticated,)
-    model = Transaction
+    queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
 
-    def get_object(self):
-        try: 
-            transaction = Transaction.objects.get(id=self.kwargs['pk'])
-            if transaction:
-                return transaction
-        except Transaction.DoesNotExist:
-            return None
-        
-        return super().get_object()
-    
-    def put(self, request, *args, **kwargs):
-        transaction = self.get_object()
+    @transaction.atomic
+    def update_transaction(self,request, *args, **kwargs):
+        transaction_instance = self.get_object()
+        transaction_serializer = self.get_serializer(transaction_instance, data=request.data,partial=True)
+        transaction_serializer.is_valid(raise_exception=True)
+        transaction_serializer.save()
 
-        if transaction:
-            serializer = self.serializer_class(instance=transaction, data=request.data)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else: 
-            return Response({"message":"Transaction does not exist"})
+        member_instance = transaction_instance.member
+        member_data = request.data.get('member', {})
+        member_serializer = MemberSerializer(member_instance, data=member_data, partial=True)
+        member_serializer.is_valid(raise_exception=True)
+        member_serializer.save()
+
+        book_data = request.data.get('book', {})
+        if book_data:
+            book_instance = transaction_instance.book
+            book_serializer = BookSerializer(book_instance, data=book_data, partial=True)
+            book_serializer.is_valid(raise_exception=True)
+            book_serializer.save()
+
+        return Response(transaction_serializer.data)
+
+
         
 class TransactionDeleteView(DestroyAPIView):
     # permission_classes = (permissions.IsAuthenticated,)
