@@ -28,8 +28,8 @@ class MemberSerializer(serializers.ModelSerializer):
         }
 
 class TransactionSerializer(serializers.ModelSerializer):
-    book = BookSerializer()
-    member = MemberSerializer()
+    book = BookSerializer(required=False)
+    member = MemberSerializer(required=False)
 
     class Meta: 
         model = Transaction
