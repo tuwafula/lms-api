@@ -25,7 +25,18 @@ class MemberSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'name': {'required': False},
             'email': {'required': False},
+            'email': {'validators': []},
         }
+    
+    def validate_email(self, value):
+        # Check if the email is being updated and another member with the new email already exists
+        if self.instance and self.instance.email != value:
+            existing_member = Member.objects.filter(email=value)
+            if existing_member.exists():
+                raise serializers.ValidationError("Member with this email already exists.")
+        return value
+
+      
 
 class TransactionSerializer(serializers.ModelSerializer):
     book = BookSerializer()
