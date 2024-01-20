@@ -38,6 +38,12 @@ class MemberSerializer(serializers.ModelSerializer):
 
       
 
+class TransactionCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = '__all__'
+
+
 class TransactionSerializer(serializers.ModelSerializer):
     book = BookSerializer()
     member = MemberSerializer()
