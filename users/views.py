@@ -49,7 +49,13 @@ class LoginView(APIView):
 class getUserView(APIView):
 
     def get(self, request):
-        token = request.COOKIES.get('jwt')
+        authorization_header = request.headers.get('Authorization')
+
+        if not authorization_header or not authorization_header.startswith('Bearer '):
+            raise AuthenticationFailed('Invalid Authorization header format')
+        # token = request.COOKIES.get('jwt')
+
+        token = authorization_header.split(' ',)[1]
 
         if not token:
             raise AuthenticationFailed('Unauthenticated')
