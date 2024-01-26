@@ -164,3 +164,13 @@ MEDIA_ROOT = BASE_DIR / 'static/images'
 CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
+
+
+CLOUDINARY = {
+    'cloud_name' : 'dz9wzvgbd',
+    'api_key': '865245918443586',
+    'api_secret': 'GXGeOHHm7NHJHGviGar6U6Y5j5M'
+}
+
+
+
