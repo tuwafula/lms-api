@@ -13,8 +13,7 @@ class BookSerializer(serializers.ModelSerializer):
             'quantity': {'required': False},
             'stock': {'required': False},
             'rent_fee': {'required': False},
-
-           
+            'image': {'required': False}
         }
 
 class MemberSerializer(serializers.ModelSerializer):
