@@ -1,4 +1,4 @@
-<h1></h1>
+<h1>Summary</h1>
 <p>This is a REST API built using django-restframework.
 The API is meant for use by libraries for management of library resources.
   </p>
