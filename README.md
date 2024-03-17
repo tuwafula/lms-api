@@ -2,7 +2,7 @@
 <p>This is a REST API built using django-restframework.
 The API is meant for use by libraries for management of library resources.
   </p>
-**Base models Summary:**
+<p>Base models Summary:</p>
 
 **1. Book:**
 - Represents a book in the system.
@@ -47,7 +47,10 @@ The API is meant for use by libraries for management of library resources.
 - The `book` and `member` fields in the `Transaction` model establish foreign key relationships with the `Book` and `Member` models, respectively.
 - When a `Transaction` is created, it links a specific `Book` with a specific `Member`, and stores the relevant details such as issue date, return date, and rental fee charged.
 
-**User Model Summary:**
+<p>
+  
+User Model Summary:
+</p>
 
 The `User` model is a custom user model built upon Django's `AbstractUser`, designed to provide enhanced functionality for user management in Django applications.
 
