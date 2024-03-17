@@ -1,4 +1,7 @@
-**Models Summary:**
+**Summary**
+This is a REST API built using django-restframework.
+The API is meant for use by libraries for management of library resources.
+**Base models Summary:**
 
 **1. Book:**
 - Represents a book in the system.
@@ -42,3 +45,36 @@
 - Each `Transaction` links a `Book` with a `Member`, representing the action of a member renting a book.
 - The `book` and `member` fields in the `Transaction` model establish foreign key relationships with the `Book` and `Member` models, respectively.
 - When a `Transaction` is created, it links a specific `Book` with a specific `Member`, and stores the relevant details such as issue date, return date, and rental fee charged.
+
+**User Model Summary:**
+
+The `User` model is a custom user model built upon Django's `AbstractUser`, designed to provide enhanced functionality for user management in Django applications.
+
+**Attributes:**
+- `first_name`: Represents the first name of the user (CharField).
+- `last_name`: Represents the last name of the user (CharField).
+- `email`: Represents the email address of the user, and is set as the unique identifier for the user (EmailField).
+- `is_staff`: Indicates whether the user has staff permissions (BooleanField).
+- `is_superuser`: Indicates whether the user has superuser permissions (BooleanField).
+- `avatar`: Represents the avatar (profile picture) of the user, stored as an image file (CloudinaryField).
+- `username`: Set to `None` to enforce the use of email as the username.
+- `USERNAME_FIELD`: Specifies the field used as the unique identifier for authentication (email).
+- `REQUIRED_FIELDS`: Specifies additional fields required when creating a user (none in this case).
+
+**Methods:**
+- `create_user(email, password=None, **extra_fields)`: Creates a regular user with the given email and password. Raises a `ValueError` if email or password is not provided.
+- `create_superuser(email, password=None, **extra_fields)`: Creates a superuser with the given email and password. Sets `is_staff` and `is_superuser` to `True`. Raises a `ValueError` if `is_staff` or `is_superuser` is not `True`.
+
+**Relationships:**
+- Inherits from Django's `AbstractUser`, providing all the standard fields and methods of Django's default user model.
+- Utilizes a custom user manager (`CustomUserManager`) to manage user creation and provide additional functionality.
+
+**Avatar Handling:**
+- The `avatar` field allows users to upload their profile pictures, which are stored using Cloudinary for efficient handling of image uploads and storage.
+
+**Usage:**
+- Designed for use as the primary user model in Django applications, providing a robust foundation for user authentication and management.
+- Can be extended or customized further to meet specific application requirements, such as additional user profile information or authentication mechanisms.
+
+**Note:**
+- By setting `username` to `None`, the `email` field becomes the unique identifier for authentication purposes, promoting email-based user authentication, which is considered best practice for security and usability reasons.
