@@ -76,9 +76,5 @@ The `User` model is a custom user model built upon Django's `AbstractUser`, desi
 **Avatar Handling:**
 - The `avatar` field allows users to upload their profile pictures, which are stored using Cloudinary for efficient handling of image uploads and storage.
 
-**Usage:**
-- Designed for use as the primary user model in Django applications, providing a robust foundation for user authentication and management.
-- Can be extended or customized further to meet specific application requirements, such as additional user profile information or authentication mechanisms.
-
 **Note:**
 - By setting `username` to `None`, the `email` field becomes the unique identifier for authentication purposes, promoting email-based user authentication, which is considered best practice for security and usability reasons.
