@@ -40,7 +40,5 @@
 
 **Relationships:**
 - Each `Transaction` links a `Book` with a `Member`, representing the action of a member renting a book.
-- A `Book` can have multiple related `Transaction` instances (one-to-many relationship).
-- A `Member` can have multiple related `Transaction` instances (one-to-many relationship).
 - The `book` and `member` fields in the `Transaction` model establish foreign key relationships with the `Book` and `Member` models, respectively.
 - When a `Transaction` is created, it links a specific `Book` with a specific `Member`, and stores the relevant details such as issue date, return date, and rental fee charged.
