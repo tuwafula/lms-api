@@ -1,6 +1,7 @@
-**Summary**
-This is a REST API built using django-restframework.
+<h1></h1>
+<p>This is a REST API built using django-restframework.
 The API is meant for use by libraries for management of library resources.
+  </p>
 **Base models Summary:**
 
 **1. Book:**
