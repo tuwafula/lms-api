@@ -37,7 +37,6 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
-    # username = models.EmailField(unique=True)
     is_staff = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=True)
     # avatar = models.ImageField(upload_to=upload_to,blank=True,null=True, default="avatar.svg")
@@ -45,7 +44,6 @@ class User(AbstractUser):
     username = None
 
     USERNAME_FIELD = 'email'
-    # USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
