@@ -97,7 +97,7 @@ DATABASES = {
 # 
 database_url = os.environ.get("DATABASE_URL")
 
-# DATABASES["default"] = dj_database_url.parse("postgres://lms_backend_62mb_user:VkP1e86lShlmu3EU7LVhzf6uxQvlnHb2@dpg-cmhp98md3nmc73cfrq8g-a.oregon-postgres.render.com/lms_backend_62mb")
+# DATABASES["default"] = dj_database_url.parse("postgres://lms_api_user:s7k8AUpUyuI1kgKnV4rrCw5fjodqWCtJ@dpg-coqceiv79t8c738ea900-a.oregon-postgres.render.com/lms_api")
 
 DATABASES["default"] = dj_database_url.parse(database_url)
 
